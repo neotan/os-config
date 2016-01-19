@@ -1,0 +1,12 @@
+.DS_Store
+supertab/
+Mark--Karkat/
+ctrlp.vim/
+emmet-vim/
+indentLine/
+neocomplete.vim/
+neosnippet/
+neosnippet-snippets/
+nerdtree/
+syntastic/
+vim-airline/

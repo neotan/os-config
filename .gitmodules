@@ -1,0 +1,9 @@
+[submodule "ios_home/.vim/bundle/Vundle.vim"]
+	path = ios_home/.vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git
+[submodule "osx_home/.vim/bundle/Vundle.vim"]
+	path = osx_home/.vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git
+[submodule "linux_home/.vim/bundle/Vundle.vim"]
+	path = linux_home/.vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git

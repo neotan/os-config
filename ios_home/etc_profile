@@ -1,0 +1,13 @@
+export PS1='\h:\w \u\$ '
+umask 022
+
+for i in /etc/profile.d/*.sh ; do
+    if [ -r "$i" ]; then
+        . $i
+    fi
+done
+
+
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi

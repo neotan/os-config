@@ -1,0 +1,9 @@
+deb http://apt.saurik.com/ ios/847.27 main
+deb http://repo.insanelyi.com/ ./
+deb https://coolstar.org/publicrepo/ ./
+deb http://cydia.zodttd.com/repo/cydia/ stable main
+deb http://repo666.ultrasn0w.com/ ./
+deb http://apt.thebigboss.org/repofiles/cydia/ stable main
+deb http://cydia.radare.org/ ./
+deb http://ios-webstack.tk/cydia/ ./
+deb http://apt.modmyi.com/ stable main
