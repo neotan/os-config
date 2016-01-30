@@ -1,3 +1,4 @@
+
 " ====== Vundle Setting START (Must at the TOP)==================
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -16,7 +17,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
-""Plugin 'ervandew/supertab'
+Plugin 'ervandew/supertab'
 Plugin 'Yggdroot/indentLine'
 ""Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-scripts/Mark--Karkat'
@@ -25,9 +26,13 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 ""Plugin 'terryma/vim-multiple-cursors'
 ""Plugin 'tpope/vim-commentary'
-""Plugin 'maksimr/vim-jsbeautify'
+Plugin 'maksimr/vim-jsbeautify'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/syntastic'
+Plugin 'jiangmiao/auto-pairs'
+""Plugin 'Chiel92/vim-autoformat'
+""Plugin 'mxw/vim-jsx'
+""Plugin 'pangloss/vim-javascript'
 ""Plugin 'tpope/vim-surround'
 " plugin from http://vim-scripts.org/vim/scripts.html
 ""Plugin 'L9'
@@ -71,14 +76,14 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions'
+      \ }
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+  let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
@@ -143,7 +148,7 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " \ neosnippet#expandable_or_jumpable() ?
 " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
@@ -151,149 +156,206 @@ if has('conceal')
 endif
 " ====== NeoSnippet Setting END ===============
 
-" Automatic reloading of .vimrc
- autocmd! bufwritepost .vimrc source %
+"""" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
 
 
-" Better copy & paste
+"""" Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
 
- set pastetoggle=<F2>
- set clipboard=unnamed
+set pastetoggle=<F2>
+set clipboard=unnamed
 
 
-" Mouse and backspace
- set mouse=a  " on OSX press ALT and click
- set bs=2     " make backspace behave like normal again
+"""" Mouse and backspace
+set mouse=a  " on OSX press ALT and click
+set bs=2     " make backspace behave like normal again
 
 
-" Rebind <Leader> key
+"""" Rebind <Leader> key
 " I like to have it here becuase it is easier to reach than the default and
 " it is next to ``m`` and ``n`` which I use for navigating between tabs.
- let mapleader = ","
+let mapleader = ","
 
 
-" Bind nohl
+"""" Bind nohl
 " Removes highlight of your last search
 " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
- noremap <C-n> :nohl<CR>
- vnoremap <C-n> :nohl<CR>
- inoremap <C-n> :nohl<CR>
+noremap <C-n> :nohl<CR>
+vnoremap <C-n> :nohl<CR>
+inoremap <C-n> :nohl<CR>
 
 
-" Quicksave command
- noremap <C-Z> :update<CR>
- vnoremap <C-Z> <C-C>:update<CR>
- inoremap <C-Z> <C-O>:update<CR>
+"""" Quicksave command
+noremap <C-Z> :update<CR>
+vnoremap <C-Z> <C-C>:update<CR>
+inoremap <C-Z> <C-O>:update<CR>
 
 
-" Quick quit command
- noremap <Leader>e :quit<CR>  " Quit current window
- noremap <Leader>E :qa!<CR>   " Quit all windows
+"""" Quick quit command
+noremap <Leader>e :quit<CR>  " Quit current window
+noremap <Leader>E :qa!<CR>   " Quit all windows
 
 
-" bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
+"""" bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
 " Every unnecessary keystroke that can be saved is good for your health :)
- map <c-j> <c-w>j
- map <c-k> <c-w>k
- map <c-l> <c-w>l
- map <c-h> <c-w>h
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
 
 
-" easier moving between tabs
+"""" easier moving between tabs
 "" map <Leader>n <esc>:tabprevious<CR>
 "" map <Leader>m <esc>:tabnext<CR>
-map <C-S-Left> <esc>:tabprevious<CR>
-map <C-S-Right> <esc>:tabnext<CR>
+"map <C-S-Left> <esc>:tabprevious<CR>
+"map <C-S-Right> <esc>:tabnext<CR>
 
 " map sort function to a key
- vnoremap <Leader>s :sort<CR>
+vnoremap <Leader>s :sort<CR>
 
 
-" easier moving of code blocks
+"""" easier moving of code blocks
 " Try to go into visual mode (v), thenselect several lines of code here and
 " then press ``>`` several times.
- vnoremap < <gv  " better indentation
- vnoremap > >gv  " better indentation
+vnoremap < <gv  " better indentation
+vnoremap > >gv  " better indentation
 
 
-" Show whitespace
+"""" Show whitespace
 " MUST be inserted BEFORE the colorscheme command
- autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
- au InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
 
 
-" Color scheme
+"""" Color scheme
 " mkdir -p ~/.vim/colors && cd ~/.vim/colors
 " wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
 " wget -O molokai.vim http://www.vim.org/scripts/download_script.php?src_id=9750
- set t_Co=256
+set t_Co=256
 "color wombat256mod
 color molokai
 "color jellybeans 
 
 
-" Enable syntax highlighting
+"""" Enable syntax highlighting
 " You need to reload this file for the change to apply
- filetype off
- filetype plugin indent on
- syntax on
+filetype off
+filetype plugin indent on
+syntax on
 
 
-" Showing line numbers and length
- set number  " show line numbers
- set tw=79   " width of document (used by gd)
- set nowrap  " don't automatically wrap on load
- set fo-=t   " don't automatically wrap text when typing
- set colorcolumn=80
- highlight ColorColumn ctermbg=233
+"""" Showing line numbers and length
+set number  " show line numbers
+set tw=79   " width of document (used by gd)
+set nowrap  " don't automatically wrap on load
+set fo-=t   " don't automatically wrap text when typing
+set colorcolumn=80
+"highlight ColorColumn ctermbg=233
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+set cursorline " highlight current line
 
-" Showing indentLine
+
+"""" Showing indentLine
 " https://github.com/Yggdroot/indentLine.git
- let g:indentLine_color_term = 235
+let g:indentLine_color_term = 235
 "" let g:indentLine_char = '|'
- let g:indentLine_leadingSpaceEnabled=1
+let g:indentLine_leadingSpaceEnabled=1
 
-" easier formatting of paragraphs
- vmap Q gq
- nmap Q gg=G''
-
-
-" Useful settings
- set history=700
- set undolevels=700
+"""" easier formatting of paragraphs
+vmap Q gq
+nmap Q gg=G''
 
 
-" Real programmers don't use TABs but spaces
- set tabstop=4          "Indentation levels every four columns
- set softtabstop=4
- set shiftwidth=2       "Indent/outdent by four columns
- set shiftround
- set expandtab          "Convert all tabs typed to spaces
+"""" Useful settings
+set history=700
+set undolevels=700
 
 
-" Make search case insensitive
- set hlsearch
- set incsearch
- set ignorecase
- set smartcase
+"""" Real programmers don't use TABs but spaces
+set tabstop=4          "Indentation levels every four columns
+set softtabstop=4
+set shiftwidth=2       "Indent/outdent by four columns
+set shiftround
+set expandtab          "Convert all tabs typed to spaces
 
 
-" Disable stupid backup and swap files - they trigger too many events
+"""" Make search case insensitive
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+
+"""" Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
- set nobackup
- set nowritebackup
- set noswapfile
+set nobackup
+set nowritebackup
+set noswapfile
 
+"""" shortcut to delete in the black hole register
+"nnoremap <leader>d "_d
+"vnoremap <leader>d "_d
+"" shortcut to paste but keeping the current register
+"vnoremap <leader>p "_dP
 
-" Settings for CtrlP
-" cd ~/.vim/bundle
+"""" Settings for CtrlP
 " git clone https://github.com/kien/ctrlp.vim.git
 let g:ctrlp_max_height = 30
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
-" Settings for Emmet
+"""" Settings for Emmet
+" https://github.com/vim-airline/vim-airline.git
+" Expand snippet by press 'Ctrl' + 'E', e.g. html<Ctrl+E>
 let g:user_emmet_expandabbr_key = '<C-E>'
+
+"""" Setting for vim-jsx
+"" Enable React syntax highlighting for .js file aslo (defalt .jsx)
+"let g:jsx_ext_required = 0
+
+
+"""" Setting for vim-airline
+"" https://github.com/vim-airline/vim-airline.git
+"" Automatically displays all buffers when there's only one tab open.
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+"" switch buffers(tabs)
+nnoremap <C-S-Right> :bn<CR>
+nnoremap <C-S-Left> :bp<CR>
+
+"""" Setting for vim-javascript
+"" https://github.com/pangloss/vim-javascript
+"let javascript_enable_domhtmlcss = 1
+"let b:javascript_fold = 1
+"let javascript_ignore_javaScriptdoc =0
+
+"""" Setting for Chiel92/vim-autoformat
+"" Some formatters allow you to format only a part of the file, for instance 
+"" clang-format and autopep8. To use this, provide a range to the :Autoformat 
+"" command, for instance by visually selecting a part of your file, and then 
+"" executing :Autoformat. For convenience it is recommended that you assign a 
+"" key for this, like so:
+"noremap <F3> :Autoformat<CR>
+
+""Or to have your code be formatted upon saving your file, you could use 
+""something like this:
+"au BufWrite * :Autoformat
+
+""To disable the fallback to vim's indent file, set the following variable to be 0.
+let g:autoformat_autoindent = 1
+
+"""" Setting for maksimr/vim-jsbeautify
+map <F3> :call JsBeautify()<cr>
+
+"binding a function for js, html and css in Visual mode
+autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
+autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+" ====================== End of .vimrc =================================== 
