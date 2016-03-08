@@ -13,3 +13,6 @@
 [submodule "lubuntu_home/.vim/bundle/Vundle.vim"]
 	path = lubuntu_home/.vim/bundle/Vundle.vim
 	url = https://github.com/VundleVim/Vundle.vim.git
+[submodule "Vundle.vim"]
+	path = Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git
