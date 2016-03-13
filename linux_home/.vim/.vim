@@ -1,1 +1,0 @@
-/home/neo/dl/vim-config/debian_home/.vim
