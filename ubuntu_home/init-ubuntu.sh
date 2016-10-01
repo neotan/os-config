@@ -12,14 +12,14 @@ TODAY=`date +%Y-%m-%d_%H-%M-%S`
 currentPath=`pwd`
 
 # Env. parameters
-OS='OS X'
+OS=`uname -a`
 
 echo "" 
-echo -e ${PURPLE} "------------- Start ---------------"${NC}
-echo -e ${LBLUE}"Initial work env for $OS..."
-echo -e "--- Now is "$TODAY
-echo -e "--- Current working path is " $currentPath ${NC}
-
+echo -e ${PURPLE} "------------ START --------------"${NC}
+echo -e ${LBLUE}"Initial env. for: "${NC}
+echo -e ${LGREEN}"[ $OS ]"${NC}
+echo -e "--- Now is: "$TODAY
+echo -e "--- Current working path is: " $currentPath ${NC}
 
 # Backup existing config (e.g. vim, .bashrc...) and make them link to current
 #  vim-config repo, so that they can always sync with current repo.
@@ -81,3 +81,4 @@ if [[ $REPLY =~ ^[Yy]$ ]]
         listfile
         echo "Deleted all the backup files, hope you won't regret~"
 fi
+echo -e ${PURPLE} "------------- END ---------------"${NC}
