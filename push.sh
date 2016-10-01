@@ -5,7 +5,7 @@ echo -e "\033[0;32m----Updates to GitHub...\033[0m"
 git add -A
 
 # Commit changes.
-msg="rebuilding `date`"
+msg="Rebuild at `date`"
 if [ $# -eq 1 ]
   then msg="$1"
 fi
