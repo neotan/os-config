@@ -116,6 +116,6 @@ fi
 # Customized PS1
 export LOCIP="`hostname -I`"
 export PUBIP="`wget http://ipinfo.io/ip -qO -`"
-export PS1="\[\033[38;5;11m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;9m\]\h[$PUBIP]:\[$(tput sgr0)\]\[\033[38;5;15m\]\[$(tput sgr0)\]\[\033[38;5;11m\] \w\[$(tput sgr0)\]\[\033[38;5;15m\] \n\[$(tput sgr0)\]"
+export PS1="\[\033[38;5;11m\]\[\033[48;5;240m\]\u\[\033[38;5;15m\]@\[\033[38;5;9m\]\h[$PUBIP]:\[$(tput sgr0)\]\[\033[38;5;15m\]\[\033[38;5;11m\] \w\[\033[38;5;15m\] \n\[$(tput sgr0)\]"
 #export LC_CTYPE=en_US.UTF-8
 #export LC_ALL=en_US.UTF-8
