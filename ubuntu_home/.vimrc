@@ -14,67 +14,63 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-"Plugin 'Shougo/neocomplete.vim'
-"Plugin 'SirVer/ultisnips'
-"Plugin 'Shougo/neosnippet'
-"Plugin 'Shougo/neosnippet-snippets'
-Plugin 'ervandew/supertab'
+" --------- Plug-Ins START -------------
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+"Plugin 'ervandew/supertab'
+
+Plugin 'garbas/vim-snipmate' " Require below packages
   Plugin 'MarcWeber/vim-addon-mw-utils'
   Plugin 'tomtom/tlib_vim'
-  Plugin 'garbas/vim-snipmate'
+  Plugin 'honza/vim-snippets' " Optional
 
-  Plugin 'honza/vim-snippets'
-"Plugin 'Yggdroot/indentLine'
-""Plugin 'Valloric/YouCompleteMe'
-"Plugin 'vim-scripts/Mark--Karkat'
+Plugin 'Yggdroot/indentLine'
+Plugin 'vim-scripts/Mark--Karkat'
 Plugin 'mattn/emmet-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
-""Plugin 'terryma/vim-multiple-cursors'
-""Plugin 'tpope/vim-commentary'
+"Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'tpope/vim-commentary'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/syntastic'
 Plugin 'jiangmiao/auto-pairs'
-""Plugin 'Chiel92/vim-autoformat'
-""Plugin 'mxw/vim-jsx'
-""Plugin 'pangloss/vim-javascript'
-""Plugin 'tpope/vim-surround'
-"""""""" plugin from http://vim-scripts.org/vim/scripts.html
-""Plugin 'L9'
-"""""""" Git plugin not hosted on GitHub
-""Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-""Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-""Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-""Plugin 'user/L9', {'name': 'newL9'}
+"Plugin 'tpope/vim-surround'
+" --------- Plug-Ins END -------------
 
-" All of your Plugins must be added before the following line
+""""""" All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" ======= Vundle brief help ========
+  " :PluginList       - lists configured plugins
+  " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+  " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+  " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+  "
+  " see :h vundle for more details or wiki for FAQ
+  " Put your non-Plugin stuff after this line
+
+
 " ====== Vundle Setting END ==========================
 
-" ====== Neocomplete.vim Setting START ===============
-" ====== Neocomplete.vim Setting END ===============
+" ====== Neocomplete.vim START ===============
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" ====== NeoSnippet Setting START =============
-" ====== NeoSnippet Setting END ===============
+" If you want :UltiSnipsEdit to split your window.
+"let g:UltiSnipsEditSplit="vertical"
 
-" ====== Vim-jsbeautify Setting START =============
+" ====== Neocomplete.vim END ===============
+
+" ====== NeoSnippet START =============
+" ====== NeoSnippet END ===============
+
+" ====== Vim-jsbeautify START =============
 
 "" Binding hot keys 
 map <c-f> :call JsBeautify()<cr>
@@ -97,7 +93,7 @@ autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
 autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
-" ====== Vim-jsbeautify Setting END ===============
+" ====== Vim-jsbeautify END ===============
 
 """" Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
@@ -129,6 +125,8 @@ noremap <C-n> :nohl<CR>
 vnoremap <C-n> :nohl<CR>
 inoremap <C-n> :nohl<CR>
 
+"""" Select all content
+map <C-a> <esc>ggVG<CR>
 
 """" Quicksave command
 noremap <C-Z> :update<CR>
@@ -256,10 +254,6 @@ set wildignore+=*/coverage/*
 " Expand snippet by press 'Ctrl' + 'E', e.g. html<Ctrl+E>
 let g:user_emmet_expandabbr_key = '<C-E>'
 
-"""" Setting for vim-jsx
-"" Enable React syntax highlighting for .js file aslo (defalt .jsx)
-"let g:jsx_ext_required = 0
-
 
 """" Setting for vim-airline
 "" https://github.com/vim-airline/vim-airline.git
@@ -270,33 +264,6 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 nnoremap <C-S-Right> :bn<CR>
 nnoremap <C-S-Left> :bp<CR>
 
-"""" Setting for vim-javascript
-"" https://github.com/pangloss/vim-javascript
-"let javascript_enable_domhtmlcss = 1
-"let b:javascript_fold = 1
-"let javascript_ignore_javaScriptdoc =0
 
-"""" Setting for Chiel92/vim-autoformat
-"" Some formatters allow you to format only a part of the file, for instance 
-"" clang-format and autopep8. To use this, provide a range to the :Autoformat 
-"" command, for instance by visually selecting a part of your file, and then 
-"" executing :Autoformat. For convenience it is recommended that you assign a 
-"" key for this, like so:
-"noremap <F3> :Autoformat<CR>
-
-""Or to have your code be formatted upon saving your file, you could use 
-""something like this:
-"au BufWrite * :Autoformat
-
-""To disable the fallback to vim's indent file, set the following variable to be 0.
-let g:autoformat_autoindent = 1
-
-
-"binding a function for js, html and css in Visual mode
-autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
-autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
-autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 " ====================== End of .vimrc =================================== 

@@ -1,0 +1,214 @@
+// Clear the float of the div
+@mixin clearFix {
+    *zoom: 1;
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+        overflow: hidden;
+    }
+
+}
+
+// Width of the main div
+$widthMain: 1000px;
+
+// Font 
+@mixin font(
+    $font-size: 16px, 
+    $font-weight: normal,
+    $vertical-align: middle,
+    $writing-mode: null){
+        font-size: $font-size;
+        font-weight: $font-weight;
+        writing-mode: $writing-mode;
+}
+
+
+// Centrolize the div
+@mixin centerHorizontal() {
+    margin: 0 auto;
+}
+
+// Build a square div
+@mixin box(
+    $width, 
+    $height:$width, 
+    $font-size:16px, 
+    $font-weight:normal, 
+    $text-align:center, 
+    $display:inline-block, 
+    $line-height:$height) {
+        width: $width;
+        height: $height;
+        display: $display;
+        text-align: $text-align;
+        line-height: $line-height;
+}
+
+// Customize color
+@mixin color(
+    $background-color:transparent, 
+    $color:#000) {
+        background-color: $background-color;
+        color: $color;
+}
+
+// Customize position
+@mixin position(
+    $position:static, 
+    $float:none) {
+        position: $position;
+        float: $float;
+}
+   
+// Customize border 
+@mixin border(
+    $top:1px, 
+    $right:$top, 
+    $bottom:$top, 
+    $left:$top, 
+    $border-style:solid, 
+    $border-color:#eee){
+        border-top: $top;
+        border-right: $right;
+        border-bottom: $bottom;
+        border-left: $left;
+        border-color: $border-color;
+        border-style: $border-style;
+}
+    
+// Customize padding
+@mixin padding(
+    $top:null, 
+    $right:$top, 
+    $bottom:$top, 
+    $left:$top){
+        padding-top: $top;
+        padding-right: $right;
+        padding-bottom: $bottom;
+        padding-left: $left;
+}
+
+// Customize margin  
+@mixin margin(
+    $top:0px, 
+    $right:0px, 
+    $bottom:0px, 
+    $left:0px){
+        margin: $top $right $bottom $left;
+}
+
+// Initialize elements
+body, h1, h2, h3, h4, h5, h6, hr, 
+p, blockquote, dl, dt, dd, ul, ol, 
+li, pre, form, fieldset, legend, 
+button, input, textarea, th, td, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Verdana, "Lantinghei SC", "Hiragino Sans GB", "Microsoft Yahei", Helvetica, arial, \5b8b\4f53, sans-serif;
+    color: #333;
+}
+
+// The wrapper of all elements
+.wrapper {
+    min-width: $widthMain;
+}
+
+// Centrolized outer
+.outer {
+    @include centerHorizontal();
+    width: $widthMain;
+    @include border(3px, $border-color:#ccc);
+    @include clearFix;
+    @include padding(5px, 5px, 5px, 5px);
+    border-radius:10px;
+}
+
+// Header
+.header {
+    @include box($widthMain, 100px);
+    @include color(#336BD7);
+    @include position();
+}
+
+// Bus number
+.busNum {
+    @include box(150px, 98px);
+    @include position(relative, left);
+    @include color(yellow, #f00);
+    @include border();
+    @include font(45px, bold);
+}
+
+// Bus destination
+.toPlace{
+    @include box(550px, 100px);
+    @include color(transparent, #fff);
+    @include position(relative, left);
+    @include font(40px, bold);
+}
+
+
+// Ticket price
+.price{
+    @include box(130px, 98px);
+    @include position(relative, left);
+    @include color(transparent, #ff0);
+    @include font($vertical-align:bottom);
+}
+
+// Bus company
+.company{
+    @include box(167px, 98px);
+    @include position(relative, left);
+    @include color(transparent, #fff);
+    @include font(26px);
+}
+
+// Bus stop
+.stop{
+    @include box(39px, 210px, 26px, $text-align:left, $line-height:38px);
+    @include font(22px,normal, $writing-mode:vertical-lr);
+    margin: 20px 0 20px;
+    letter-spacing: 11px;
+    @include padding(5px,0,0,0);
+}
+
+// Passed stops
+.passedStop{
+    @include color($color:#bbb);
+}
+
+// Curret stop
+.thisStop{
+    @include color($color:#f00);
+    @include border($border-color:#f00);
+}
+
+// Road
+.road{
+    @include box(100px, 30px, 16px, $text-align:center);
+    @include font(16px,normal);
+    @include border(1px, 0, 1px, 1px, $border-color: #f00);
+    @include position(null, left);
+    // &:last-child{
+    //     border-right:1px solid #f00;
+    // }
+}
+
+// Arrow
+.arrow{
+    border: 16px solid transparent;
+    border-left: 16px solid #f00;
+    height: 0px;
+    float: left;
+    position: absolute;
+    overflow: hidden;
+}

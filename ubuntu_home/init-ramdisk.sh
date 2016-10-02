@@ -78,10 +78,10 @@ then
         rm -rf $CHROME_CACHE_PATH
 
 		# Create 'ramdisk' in Ramdisk.
-        sudo mkdir ${RAMDISK_PATH}/google-chrome
+        #sudo mkdir ${RAMDISK_PATH}/google-chrome
 
 		# Make link to link up 'ramdisk' folder and Chrome Cache folderyy.
-        ln -s ${RAMDISK_PATH}/google-chrome $CHROME_CACHE_PATH 
+        ln -s ${RAMDISK_PATH} $CHROME_CACHE_PATH 
 
 		# Chang 'ramdisk''s owner to current user.
         sudo chown -R ${USER}:${USER} $RAMDISK_PATH 
