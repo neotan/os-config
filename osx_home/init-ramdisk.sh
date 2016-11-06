@@ -8,16 +8,17 @@ LRED='\033[1;31m'
 LGREEN='\033[1;32m'
 LBLUE='\033[1;34m'
 PURPLE='\033[0;35m'
+GRAY='\033[1;30m'
 TODAY=`date +%Y-%m-%d_%H-%M-%S`
 CURRENT_PATH=`pwd`
-RAMDISK_PATH='/mnt/ramdisk'
-CHROME_CACHE_PATH=${HOME}'/.cache/google-chrome'
-
+RAMDISK_LETTER='RAMDisk'
+RAMDISK_PATH='/Volumes/'${RAMDISK_LETTER}
+CHROME_CACHE_PATH=${HOME}'/Library/Caches/Google/Chrome'
 # Env. parameters
 OS=`uname -a`
 
 echo 
-echo -e ${PURPLE} "------------ Ramdisk START --------------"${NC}
+echo -e ${GRAY} "------------ RAMDisk START --------------"${NC}
 echo 
 # echo -e "[ Env. ]: ${LBLUE} $OS ${NC}"
 # echo -e "[ Now ]: ${LBLUE} $TODAY ${NC}"
@@ -29,71 +30,64 @@ echo -e "${LBLUE}[Now]:${NC} $TODAY"
 echo -e "${LBLUE}[Current Working Path]:${NC} $CURRENT_PATH"
 echo -e "${LBLUE}[Current User]:${NC} $USER"
 
-
-# Create folder for ramdisk
-if [ ! $RAMDISK_PATH ]
-    then `sudo mkdir -p $RAMDISK_PATH`
-	echo -e ${LBLUE}"[ $RAMDISK_PATH ] is created."${NC}
-fi
-
-# Show current RAM usage.
-echo
-echo -e ${PURPLE} "------------- free -g ---------------"${NC}
-free -g
-
-# Prompt to input a expected ramdisk size to be created.
+# Prompt to input a expected RAMDisk size to be created.
 echo -e ${LGREEN}
-read -p "Ramdisk size(MB) you want (128M): " size
+read -p "!!! Please CLOSE Chrome first !!! Then input RAMDisk size(MB) you want (128M): " size
 echo -e ${NC}
 
 if [[ $size =~ ^-?[0-9]+$ ]]
 then
-    size="${size}M"
+    let "size=${size}*2048"
 else
-    size="128M"
+    let "size=128*2048"
 fi
-echo -e "Input size(m): " ${LBLUE}"[ $size ]"${NC}
+echo -e "Input size(M): " ${LBLUE}"[ ${size} ]"${NC}
 
-# Mount created folder 'ramdisk' as a temp file system
-sudo mount -t tmpfs -o size=$size tmpfs $RAMDISK_PATH
+# Create and mount RAMDisk 
+diskutil eject ${RAMDISK_LETTER}
+diskutil erasevolume HFS+ 'RAMDisk' `hdiutil attach -nomount ram://${size}`
 echo
 
-# Config '/etc/fstab' to build Ramdisk once OS was booted up.
-echo -e ${PURPLE} "-----------------------------------"${NC}
-echo -e ${PURPLE} "- echo 'tmpfs /mnt/ramdisk tmpfs nodev,nosuid,noexec,nodiratime,size=128M 0 0' >> /etc/fsta -----"${NC}
-echo -e ${PURPLE} "-----------------------------------"${NC}
-sudo su -c "echo 'tmpfs $RAMDISK_PATH tmpfs nodev,nosuid,noexec,nodiratime,size=${size} 0 0' >> /etc/fstab"
-echo
+echo -e ${LGREEN}
+read -p "Auto-mount the RANDisk while OS startup?(y/n): " -n 1 -r
+echo -e ${NC}
 
-echo -e ${PURPLE} "------------- df -h ---------------"${NC}
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    # Config 'fstab' to build RAMDisk once OS was booted up.
+    echo -e ${GRAY} "-----------------------------------"${NC}
+    #echo -e ${GRAY} " diskutil erasevolume HFS+ 'RAMDisk' `hdiutil attach -nomount ram://${size}`"${NC}
+    echo -e ${GRAY} "-----------------------------------"${NC}
+    #sudo su -c "echo 'tmpfs ${RAMDISK_PATH} tmpfs nodev,nosuid,noexec,nodiratime,size=${size} 0 0' >> /etc/fstab"
+    #sudo su -c "echo 'diskutil erasevolume HFS+ 'RAMDisk' `hdiutil attach -nomount ram://${size}`' >> /private/etc/fstab"
+    echo
+fi
+
+echo -e ${GRAY} "------------- df -h ---------------"${NC}
 df -h
 
 echo -e ${LGREEN}
-read -p "Redirect the Chrome Cache path to Ramdisk?(y/n): " -n 1 -r
+read -p "Redirect the Chrome Cache path to RAMDisk?(y/n): " -n 1 -r
 echo -e ${NC}
 
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 		# Remove existing Cache folder.
-        rm -rf $CHROME_CACHE_PATH
+        rm -rf ${CHROME_CACHE_PATH}
 
-		# Create 'ramdisk' in Ramdisk.
-        #sudo mkdir ${RAMDISK_PATH}/google-chrome
+		# Make link to link up 'RAMDisk' folder and Chrome Cache folder.
+        ln -s ${RAMDISK_PATH} ${CHROME_CACHE_PATH} 
 
-		# Make link to link up 'ramdisk' folder and Chrome Cache folderyy.
-        ln -s ${RAMDISK_PATH} $CHROME_CACHE_PATH 
-
-		# Chang 'ramdisk''s owner to current user.
-        sudo chown -R ${USER}:${USER} $RAMDISK_PATH 
+		# Chang 'RAMDisk''s owner to current user.
+        chown -R ${USER}:staff ${RAMDISK_PATH} 
 fi
 echo
-echo -e ${PURPLE} "---------- $RAMDISK_PATH ------------"${NC}
-tree $RAMDISK_PATH
+echo -e ${GRAY} "---------- tree ${RAMDISK_PATH} ------------"${NC}
+tree ${RAMDISK_PATH}
 echo
-echo -e ${PURPLE} "---------- $CHROME_CACHE_PATH -------"${NC}
+echo -e ${GRAY} "---------- ${CHROME_CACHE_PATH} -------"${NC}
 echo -e ${LBLUE}
-ls -la $CHROME_CACHE_PATH
+ls -la ${CHROME_CACHE_PATH}
 echo -e ${NC}
-#tree $CHROME_CACHE_PATH
-echo -e ${PURPLE} "------------- Ramdisk END ---------------"${NC}
+echo -e ${GRAY} "------------- RAMDisk END ---------------"${NC}
 
