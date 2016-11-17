@@ -7,6 +7,3 @@
 [submodule "debian_home/.vim/bundle/Vundle.vim"]
 	path = debian_home/.vim/bundle/Vundle.vim
 	url = https://github.com/VundleVim/Vundle.vim.git
-[submodule "ubuntu_home/.vim/bundle/Vundle.vim"]
-	path = ubuntu_home/.vim/bundle/Vundle.vim
-	url = https://github.com/VundleVim/Vundle.vim.git
