@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install -y lua5.3 liblua5.3 python python-dev ruby ruby-dev
+sudo apt-get install -y lua5.2 liblua5.2 python python-dev ruby ruby-dev
 
 cd ~/workspace
 
